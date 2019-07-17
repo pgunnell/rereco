@@ -173,8 +173,31 @@ class Database():
                             method='PUT',
                             data=document)
 
-    def query(self, query_dict, page=0, page_size=20):
+    def query(self, query_string=None, page=0, limit=20, return_total_rows=False):
         """
         Perform a query in a database
+        Parentheses are supported
+        And operator is &&
+        Or operator is ||
+        Example prepid=*19*&&is_root=false
         """
-        pass
+        skip_documents = page * limit
+        query_string = query_string.replace(' ', '')
+        common_parameters = 'limit=%s&skip=%s&include_docs=True' % (limit, skip_documents)
+        if not query_string:
+            connection = self.__get_database_connection()
+            query_url = '/%s/_design/%s/_view/all?%s&include_docs=True' % (self.database_name,
+                                                                           self.database_name,
+                                                                           common_parameters)
+        else:
+            query_string = query_string.replace('=', ':').replace('&&', '%20AND%20').replace('||', '%20OR%20')
+            connection = self.__get_lucene_connection()
+            query_url = '/local/%s/_design/lucene/search?q=%s&sort=prepid<string>&%s' % (self.database_name,
+                                                                                         query_string,
+                                                                                         common_parameters)
+        response = self.__make_request(connection, query_url)
+        results = [x['doc'] for x in response.get('rows', [])]
+        if return_total_rows:
+            return results, response.get('total_rows')
+        else:
+            return results

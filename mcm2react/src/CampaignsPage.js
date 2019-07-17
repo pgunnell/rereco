@@ -66,7 +66,7 @@ class CampaignsPage extends Component {
                     } else if (attr.attrName === 'events_per_lumi') {
                       cellValue = <ul>{Object.entries(row[attr.attrName]).map( ([key, value]) => <li>{key}:&nbsp;{value}</li> )}</ul>
                     } else if (attr.attrName === 'is_root' || attr.attrName === 'on_hold') {
-                      cellValue = row[attr.attrName] === 1 ? 'Yes' : 'No'
+                      cellValue = row[attr.attrName] ? 'Yes' : 'No'
                     } else if (row[attr.attrName] !== undefined) {
                       cellValue = row[attr.attrName].toString()
                     }

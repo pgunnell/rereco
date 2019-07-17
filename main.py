@@ -1,13 +1,32 @@
-from core.controller.campaign_controller import CampaignController
+from api.campaign_api import CreateCampaignAPI, DeleteCampaignAPI, UpdateCampaignAPI, GetCampaignAPI
+from api.search_api import SearchAPI
+import logging
+import json
+from flask_restful import Api
+from flask import Flask, render_template
+from flask_cors import CORS
 
-campaign_controller = CampaignController()
 
-campaign_controller.create_campaign({'prepid': 'FirstCampaign'})
-campaign = campaign_controller.get_campaign('FirstCampaign')
-print(campaign)
-campaign.set('memory', 4000)
-campaign.set('notes', 'Note note note.')
-campaign.set('history', [])
-campaign_controller.update_campaign(campaign.json())
-campaign = campaign_controller.get_campaign('FirstCampaign')
-print(campaign)
+__LOG_FORMAT = '[%(asctime)s][%(levelname)s] %(message)s'
+logging.basicConfig(format=__LOG_FORMAT, level=logging.DEBUG)
+
+app = Flask(__name__)
+app.url_map.strict_slashes = False
+api = Api(app)
+CORS(app,
+	 allow_headers=["Content-Type",
+	                "Authorization",
+	                "Access-Control-Allow-Credentials"],
+    supports_credentials=True)
+
+api.add_resource(SearchAPI, '/api/search')
+
+api.add_resource(CreateCampaignAPI, '/api/campaigns/create')
+api.add_resource(DeleteCampaignAPI, '/api/campaigns/delete')
+api.add_resource(UpdateCampaignAPI, '/api/campaigns/update')
+api.add_resource(GetCampaignAPI, '/api/campaigns/get/<string:prepid>')
+
+app.run(host='0.0.0.0',
+        port=5000,
+        threaded=True,
+        debug=True)
