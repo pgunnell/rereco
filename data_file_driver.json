@@ -1,0 +1,1 @@
+{"eventcontent": "AOD,MINIAOD", "scenario": "pp", "datatier": "AOD,MINIAOD", "global_tag": "102XXX", "steps": "RAW2DIGI,L1Reco,RECO,EI,PAT", "era": "Run2_2017", "dataset_name": "MinimumBias"}

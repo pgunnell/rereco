@@ -1,6 +1,5 @@
 from core.model.model_base import ModelBase
 
-
 class Flow(ModelBase):
 
     _ModelBase__schema = {
