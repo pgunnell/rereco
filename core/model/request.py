@@ -1,6 +1,9 @@
 from core.model.model_base import ModelBase
 
-class Campaign(ModelBase):
+#These are the only features which are needed for a request
+#No need for not keeping output -> output will always be kept
+
+class Request(ModelBase):
 
     _ModelBase__schema = {
         # Database id
@@ -9,18 +12,26 @@ class Campaign(ModelBase):
         'prepid': '',
         # Energy in TeV
         'energy': 0.0,
-        # Type LHE, MCReproc, Prod
-        'type': '',
         # Step type: MiniAOD, NanoAOD, etc.
-        'step': 'DR',
+        'step': '',
         # CMSSW version
         'cmssw_release': '',
         # User notes
         'notes': '',
+        # Input dataset name
+        'input_dataset_name': '',
+        # Output dataset name
+        'output_dataset_name': '',
         # List of dictionaries that have cmsDriver options
         'sequences': [],
         # Action history
         'history': [],
+        # Status 
+        'status': 'new', #it should be either approved, submitted, done (nothing else)
+        # Workflow name in computing when submitted 
+        'reqmgr_name': '', 
+        # process string
+        'process_string': '', 
         # Default memory
         'memory': 2300}
 
