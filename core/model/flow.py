@@ -9,11 +9,14 @@ class Flow(ModelBase):
         'prepid': '',
         # List of allowed source campaigns prepids
         'source_campaigns': [],
+        # List of statuses for the flow
+        'status': '',
         # Target campaign prepid
         'target_campaign': ''}
 
     __lambda_checks = {
         'prepid': lambda prepid: ModelBase.matches_regex(prepid, '[a-zA-Z0-9]{1,50}')
+        'status': lambda status: status in ['new','submit','tasksubmit'])
     }
 
     def __init__(self, json_input=None):
