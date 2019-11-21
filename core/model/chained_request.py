@@ -1,7 +1,6 @@
 from core.model.model_base import ModelBase
 
-
-class ChainedCampaign(ModelBase):
+class ChainedRequest(ModelBase):
 
     _ModelBase__schema = {
         # Database id
@@ -10,8 +9,8 @@ class ChainedCampaign(ModelBase):
         'prepid': '',
         # Notes
         'notes': '',
-        # List of flow and campaign pairs
-        'campaigns': []}
+        # List of requests in the chained request
+        'chain': []}
 
     __lambda_checks = {
         'prepid': lambda prepid: ModelBase.matches_regex(prepid, '[a-zA-Z0-9]{1,50}')
