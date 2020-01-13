@@ -29,7 +29,19 @@ class Request(ModelBase):
         # Status 
         'status': 'new', #it should be either approved, submitted, done (nothing else)
         # Workflow name in computing when submitted 
-        'reqmgr_name': '', 
+        'reqmgr_name': '',
+        # time event                                                                                                                                                                                                                          
+        'time_event': 5.0,
+        # size event                                                                                                                                                                                                                          
+        'size_event': 2000,
+        # priority                                                                                                                                                                                                                            
+        'priority': 110000,
+        # Keep Reco (if True, it would modify the sequence)                                                                                                                                                                                   
+        'Reco':False,
+        # DQM                                                                                                                                                                                                                                 
+        'DQM':True,
+        #number of runs                                                                                                                                                                                                                       
+        'runs':[]
         # process string
         'process_string': '', 
         # Default memory
@@ -39,6 +51,12 @@ class Request(ModelBase):
         'prepid': lambda prepid: ModelBase.matches_regex(prepid, '[a-zA-Z0-9]{1,50}'),
         'energy': lambda energy: energy >= 0.0,
         'step': lambda step: step in ['DR', 'MiniAOD', 'NanoAOD'],
+        'time_event': lambda time_event: time_event >= 0.0,
+        'size_event': lambda size_event: size_event >= 0.0,
+        'priority': lambda priority: priority >= 0.0,
+        'DQM': lambda DQM: isinstance(DQM,bool),
+        'Reco': lambda Reco: isinstance(Reco,bool),
+
         'memory': lambda memory: memory >= 0,
         'cmssw_release': lambda cmssw_release: 'CMSSW' in cmssw_release
     }
