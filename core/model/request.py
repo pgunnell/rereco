@@ -64,7 +64,7 @@ class Request(ModelBase):
         'priority': lambda priority: priority >= 0.0,
         'DQM': lambda DQM: isinstance(DQM,bool),
         'Reco': lambda Reco: isinstance(Reco,bool),
-        'step': lambda step: step in ['RAW2DIGI','L1Reco','RECO','EI','PAT','DQM'] or ['ALCARECO'] in step or ['DQM'] in step,
+        'step': lambda step: step in ['RAW2DIGI','L1Reco','RECO','EI','PAT','DQM','NANO'] or ['ALCARECO'] in step or ['DQM'] in step,
         'datatier': lambda datatier: datatier in ['AOD', 'MiniAOD', 'NanoAOD', 'DQMIO', 'USER', 'ALCARECO'],
         'memory': lambda memory: memory >= 0,
         'cmssw_release': lambda cmssw_release: 'CMSSW' in cmssw_release,
