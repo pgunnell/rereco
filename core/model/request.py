@@ -45,7 +45,15 @@ class Request(ModelBase):
         # process string
         'process_string': '', 
         # Default memory
-        'memory': 2300}
+        'memory': 14000,
+        #all the following will be filled in after injection (they will be created at the time of the injection)                                                                                                                              
+        #request id (to be filled in the dictionary of injection)                                                                                                                                                                             
+        'request_id': '',
+        #reco cfg (to be filled in the dictionary of injection)                                                                                                                                                                               
+        'reco_cfg': '',
+        #harvest cfg (to be filled in the dictionary of injection)                                                                                                                                                                            
+        'harvest_cfg': ''
+    }
 
     __lambda_checks = {
         'prepid': lambda prepid: ModelBase.matches_regex(prepid, '[a-zA-Z0-9]{1,50}'),
@@ -56,9 +64,14 @@ class Request(ModelBase):
         'priority': lambda priority: priority >= 0.0,
         'DQM': lambda DQM: isinstance(DQM,bool),
         'Reco': lambda Reco: isinstance(Reco,bool),
-
+        'step': lambda step: step in ['RAW2DIGI','L1Reco','RECO','EI','PAT','DQM'] or ['ALCARECO'] in step or ['DQM'] in step,
+        'datatier': lambda datatier: datatier in ['AOD', 'MiniAOD', 'NanoAOD', 'DQMIO', 'USER', 'ALCARECO'],
         'memory': lambda memory: memory >= 0,
-        'cmssw_release': lambda cmssw_release: 'CMSSW' in cmssw_release
+        'cmssw_release': lambda cmssw_release: 'CMSSW' in cmssw_release,
+        'reco_cfg': lambda reco_cfg: ModelBase.matches_regex(reco_cfg, '[a-zA-Z0-9]{1,50}'),
+        'harvest_cfg': lambda harvest_cfg: ModelBase.matches_regex(harvest_cfg, '[a-zA-Z0-9]{1,50}'),
+        'process_string': lambda process_string: ModelBase.matches_regex(process_string, '[a-zA-Z0-9]{1,50}'),
+        'request_id': lambda request_id: ModelBase.matches_regex(request_id, '[a-zA-Z0-9]{1,50}')
     }
 
     def __init__(self, json_input=None):
