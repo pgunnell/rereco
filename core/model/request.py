@@ -73,7 +73,7 @@ class Request(ModelBase):
         'harvest_cfg': lambda harvest_cfg: ModelBase.matches_regex(harvest_cfg, '[a-zA-Z0-9]{1,50}'),
         'process_string': lambda process_string: ModelBase.matches_regex(process_string, '[a-zA-Z0-9]{1,50}'),
         'request_id': lambda request_id: ModelBase.matches_regex(request_id, '[a-zA-Z0-9]{1,50}'),
-	    'dataset_name': lambda dataset_name: ModelBase.matches_regex(dataset_name, '[a-zA-Z0-9]{1,50}')
+	'dataset_name': lambda dataset_name: ModelBase.matches_regex(dataset_name, '[a-zA-Z0-9]{1,50}')
     }
 
 
