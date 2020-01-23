@@ -52,7 +52,7 @@ class Request(ModelBase):
         #reco cfg (to be filled in the dictionary of injection)                                                                                                                                                                               
         'reco_cfg': '',
         #harvest cfg (to be filled in the dictionary of injection)                                                                                                                                                                            
-        'harvest_cfg': ''
+        'harvest_cfg': '',
         #dataset name (this is just the first split of the input dataset name, can be done automatically)                                                                                                                                     
     	'dataset_name': ''
     }
