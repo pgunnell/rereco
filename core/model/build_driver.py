@@ -156,3 +156,24 @@ def injection_steps(request):
 
     return ssh_command
     #this is the bash file which needs to be executed for injection to computing
+    
+def create_twiki(campaign_ticket):
+
+    campaign = campaign_ticket['subcampaign'].split('-')[0]
+    acquisition_era = campaign_ticket['acquisition_era'] #this is just RunB or RunC..                                                                                                                       
+    theruns = campaign_ticket['runs']
+
+    twiki=file('twiki_%s.twiki' % campaign, 'w')
+    twiki.write('---+++ !%s \n\n' % acquisition_era)
+    twiki.write('| *DataSet* | *prepID monitoring* | *run* |\n')
+
+    for pd_name in campaign_ticket['input_datasets']:
+
+        pd_name = pd_name.split('/')[0]
+        #example ReReco-Run2016F-JetHT-ForValUL2016_HIPM-0001                                                                                                                                               
+        prepid = 'ReReco-%s-%s-%s-0001' % (campaign_ticket['acquisition_era'],campaign_ticket['pd_name'],campaign_ticket['process_string'])
+        twiki.write("| %s | [[https://cms-pdmv.cern.ch/pmp/historical?r=%s][%s]] | %s |\n"  %(pd_name, prep_id, prep_id, str(theruns)))
+
+    twiki.close()
+    return twiki
+
