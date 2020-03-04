@@ -177,3 +177,23 @@ def create_twiki(campaign_ticket):
     twiki.close()
     return twiki
 
+def tierLevel(dataset):
+            tier = dataset.split('/')[-1:][0]
+            # DQMIO priority is the lowest because it does not produce any events
+            # and is used only for some statistical things
+            tier_priority =['DQM',  
+                            'DQMIO',
+                            'USER',
+                            'ALCARECO',
+                            'RAW',
+                            'RECO',
+                            'AOD',
+                            'MINIAOD',
+                            'NANOAOD']
+
+            for (p, t) in enumerate(tier_priority):
+                if t.upper() == tier:
+                    return p
+
+            return -1
+
